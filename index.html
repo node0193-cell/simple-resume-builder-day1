@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Builder</title>
+    <!-- html2pdf Library for downloading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body { font-family: 'Helvetica', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .controls { margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 800px; text-align: center; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0056b3; }
+        
+        /* Resume Styles */
+        #resume-page { background: white; width: 210mm; min-height: 297mm; padding: 20mm; box-shadow: 0 0 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        .editable { outline: none; border: 1px transparent; transition: 0.2s; }
+        .editable:hover { background: #f9f9f9; border: 1px dashed #ccc; }
+        .editable:focus { background: #fff; border: 1px solid #007bff; }
+        
+        header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        h1 { margin: 0; font-size: 28pt; text-transform: uppercase; }
+        .contact-info { color: #666; margin-top: 5px; }
+        section { margin-bottom: 20px; }
+        h2 { font-size: 16pt; border-bottom: 1px solid #eee; padding-bottom: 5px; color: #333; text-transform: uppercase; }
+        .entry { margin-bottom: 15px; }
+        .entry-title { font-weight: bold; font-size: 12pt; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <p><strong>Instructions:</strong> Click any text below to edit it. When finished, click the button.</p>
+        <button onclick="downloadPDF()">Download as PDF</button>
+    </div>
+
+    <div id="resume-page">
+        <header>
+            <h1 class="editable" contenteditable="true">Your Name</h1>
+            <div class="editable contact-info" contenteditable="true">
+                City, State | 123-456-7890 | your@email.com | linkedin.com
+            </div>
+        </header>
+
+        <section>
+            <h2>Summary</h2>
+            <p class="editable" contenteditable="true">A brief professional summary highlighting your key strengths and career goals. Click here to start typing your own bio.</p>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+            <div class="entry">
+                <div class="entry-title">
+                    <span class="editable" contenteditable="true">Job Title / Position</span>
+                    <span class="editable" contenteditable="true">2023 – Present</span>
+                </div>
+                <div class="editable" contenteditable="true">Company Name, Location</div>
+                <ul class="editable" contenteditable="true">
+                    <li>Key accomplishment or responsibility goes here.</li>
+                    <li>Quantify your results (e.g., "Increased sales by 20%").</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="entry">
+                <div class="entry-title">
+                    <span class="editable" contenteditable="true">Degree Name</span>
+                    <span class="editable" contenteditable="true">Graduated 2022</span>
+                </div>
+                <div class="editable" contenteditable="true">University Name, Location</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Skills</h2>
+            <p class="editable" contenteditable="true">Skill 1, Skill 2, Skill 3, Your Expertise, Software Proficiencies</p>
+        </section>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('resume-page');
+            const options = {
+                margin: 0,
+                filename: 'My_Resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(options).from(element).save();
+        }
+    </script>
+</body>
+</html>
