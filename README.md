@@ -12,6 +12,7 @@ Click placeholder text to enter your details.
 Export:
 Click "Download as PDF" to save your file.
 
+
 **Tech Stack**
 HTML5, CSS3, Vanilla JavaScript.
 Library: html2pdf.js (via CDN).
